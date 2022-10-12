@@ -6,17 +6,14 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    private Transform _player;
-    void Start()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-    }
+    private Vector2 _playerPosition;
 
     void Update()
     {
-        if (GameObject.Find("Player"))
+        if (PlayerDetection._isPlayerActiv)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _player.position, _speed * Time.deltaTime);
+            _playerPosition = PlayerDetection._target.position;
+            transform.position = Vector2.MoveTowards(transform.position, _playerPosition, _speed * Time.deltaTime);
         }
     }
 }
