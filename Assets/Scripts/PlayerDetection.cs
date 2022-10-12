@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
-    [SerializeField] public GameObject _player;
+    [SerializeField] private GameObject _player;
 
     public static Transform _target;
     public static bool _isPlayerActiv;
 
+    private void Awake()
+    {
+        _isPlayerActiv = true;
+    }
     private void Update()
     {
         if (_player.activeSelf)

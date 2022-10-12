@@ -4,54 +4,32 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private float _spawnTime;
-    [SerializeField] private Transform _firstEnemySpawner;
-    [SerializeField] private Transform _seocndEnemySpawner;
-    [SerializeField] private Transform _thirdEnemySpawner;
-    [SerializeField] private Transform _fourthEnemySpawner;
+    [SerializeField] private Transform[] _enemySpawners = new Transform[4];
 
-    private float _nextSpawnTime;
     private int _spawnerCounter;
 
     void Start()
     {
-        _nextSpawnTime = _spawnTime;
-        _spawnerCounter = 1;
+        _spawnerCounter = 0;
+        StartCoroutine(SpawnEnemy());
     }
 
-    void Update()
+    private IEnumerator SpawnEnemy()
     {
-        if (GameObject.Find("Player") != null)
+        while (PlayerDetection._isPlayerActiv)
         {
-            if (Time.time > _nextSpawnTime)
+            var enemy = Instantiate(_enemyPrefab, _enemySpawners[_spawnerCounter].position, Quaternion.identity);
+
+            _spawnerCounter++;
+
+            if (_spawnerCounter == _enemySpawners.Length)
             {
-                if (_spawnerCounter == 1)
-                {
-                    SpawnEnemy(_firstEnemySpawner.position);
-                }
-                else if (_spawnerCounter == 2)
-                {
-                    SpawnEnemy(_seocndEnemySpawner.position);
-                }
-                else if (_spawnerCounter == 3)
-                {
-                    SpawnEnemy(_thirdEnemySpawner.position);
-                }
-                else if (_spawnerCounter == 4)
-                {
-                    SpawnEnemy(_fourthEnemySpawner.position);
-                    _spawnerCounter = 0;
-                }
-
-                _spawnerCounter++;
-                _nextSpawnTime += _spawnTime;
+                _spawnerCounter = 0;
             }
-        }
-    }
 
-    void SpawnEnemy(Vector3 position)
-    {
-        GameObject enemy = Instantiate(_enemyPrefab, position, Quaternion.identity);
+            yield return new WaitForSeconds(_spawnTime);
+        }
     }
 }

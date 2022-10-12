@@ -489,12 +489,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96949b6a562a7644ca654a01084f47ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 1370503900137602819, guid: 89361f0a5fd3b95408b8bf268aeb4948, type: 3}
+  _enemyPrefab: {fileID: 7086770887706854439, guid: 89361f0a5fd3b95408b8bf268aeb4948, type: 3}
   _spawnTime: 1.3
-  _firstEnemySpawner: {fileID: 1057154939}
-  _seocndEnemySpawner: {fileID: 813694089}
-  _thirdEnemySpawner: {fileID: 1179169662}
-  _fourthEnemySpawner: {fileID: 2136776526}
+  _enemySpawners:
+  - {fileID: 1057154939}
+  - {fileID: 813694089}
+  - {fileID: 1179169662}
+  - {fileID: 2136776526}
 --- !u!1001 &584013964
 PrefabInstance:
   m_ObjectHideFlags: 0
