@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawn : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private float _spawnTime;
@@ -20,6 +20,8 @@ public class EnemySpawn : MonoBehaviour
     {
         while (PlayerDetection._isPlayerActiv)
         {
+            WaitForSeconds spawnTime = new WaitForSeconds(_spawnTime);
+
             var enemy = Instantiate(_enemyPrefab, _enemySpawners[_spawnerCounter].position, Quaternion.identity);
 
             _spawnerCounter++;
@@ -29,7 +31,7 @@ public class EnemySpawn : MonoBehaviour
                 _spawnerCounter = 0;
             }
 
-            yield return new WaitForSeconds(_spawnTime);
+            yield return spawnTime;
         }
     }
 }
